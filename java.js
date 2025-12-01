@@ -1,0 +1,500 @@
+//Mobile Menu Toggle
+document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+    document.querySelector('.nav-links').classList.toggle('active');
+});
+
+// Mobile dropdown toggle
+document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+    toggle.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768) {
+            e.preventDefault();
+            const dropdownMenu = this.nextElementSibling;
+            dropdownMenu.classList.toggle('active');
+        }
+    });
+});
+// Gallery Data - замените на реальные URL
+const galleryData = {
+    photos: [
+        { src: '1.jpg', alt: 'Команда в боксах' },
+        { src: '2.jpg', alt: 'Пилоты на подиуме' },
+        { src: '4.jpg', alt: 'Болид на трассе' },
+        { src: '5.jpg', alt: 'Командная встреча' },
+        {src: '6.jpg', alt: 'Команда в боксах' },
+        { src: '7.jpg', alt: 'Пилоты на подиуме' },
+        { src: '8.jpg', alt: 'Техническая команда' },
+        { src: '9.jpg', alt: 'Болид на трассе' },
+        { src: '10.jpg', alt: 'Командная встреча' },
+        { src: '11.jpg', alt: 'Болид на трассе' },
+        { src: '12.jpg', alt: 'Командная встреча' },
+        { src: '13.jpg', alt: 'Командная встреча' }
+
+    ],
+    videos: [
+        { src: 'video1.mp4', poster: '11.jpg', title: '' },
+        { src: 'video2.mp4', poster: '11.jpg', title: 'Тренировочный заезд' },
+        { src: 'video3.mp4', poster: '11.jpg', title: 'Интервью с пилотами' },
+        { src: 'video4.mp4', poster: '11.jpg', title: 'Строительство болида' },
+        { src: 'video5.mp4', poster: '11.jpg', title: 'Победа в гонке' },
+        { src: 'video16.mp4', poster: '11.jpg', title: 'Закулисье Гран-при' },
+        { src: 'video7.mp4', poster: '11.jpg', title: 'Тренировочный заезд' },
+        { src: 'video8.mp4', poster: '11.jpg', title: 'Интервью с пилотами' },
+        { src: 'video9.mp4', poster: '11.jpg', title: 'Строительство болида' },
+        { src: 'video10.mp4', poster: '11.jpg', title: 'Победа в гонке' },
+        { src: 'video11.mp4', poster: '11.jpg', title: 'Закулисье Гран-при' },
+        { src: 'video12.mp4', poster: '11.jpg', title: 'Тренировочный заезд' },
+        { src: 'video13.mp4', poster: '11.jpg', title: 'Интервью с пилотами' },
+        { src: 'video14.mp4', poster: '11.jpg', title: 'Строительство болида' }
+  
+    ]
+};
+
+// Gallery functionality
+class Gallery {
+    constructor(type, data) {
+        this.type = type;
+        this.data = data;
+        this.currentIndex = 0;
+        this.init();
+    }
+
+    init() {
+        this.createGallery();
+        this.setupControls();
+        this.showItem(0);
+    }
+
+    createGallery() {
+        const galleryTrack = document.getElementById(`${this.type}Gallery`);
+        const thumbnails = document.getElementById(`${this.type}Thumbnails`);
+        
+        galleryTrack.innerHTML = '';
+        thumbnails.innerHTML = '';
+        
+        this.data.forEach((item, index) => {
+            // Создаем основной элемент галереи
+            const galleryItem = document.createElement('div');
+            galleryItem.className = 'gallery-item';
+            
+            if (this.type === 'photo') {
+                const img = document.createElement('img');
+                img.src = item.src;
+                img.alt = item.alt;
+                galleryItem.appendChild(img);
+            } else {
+                const videoWrapper = document.createElement('div');
+                videoWrapper.className = 'video-wrapper';
+                
+                const video = document.createElement('video');
+                video.src = item.src;
+                video.poster = item.poster;
+                video.controls = false;
+                video.preload = 'metadata';
+                
+                const overlay = document.createElement('div');
+                overlay.className = 'video-overlay';
+                
+                const playBtn = document.createElement('button');
+                playBtn.className = 'play-btn';
+                playBtn.innerHTML = '▶';
+                playBtn.addEventListener('click', () => {
+                    video.play();
+                    overlay.style.display = 'none';
+                });
+                
+                overlay.appendChild(playBtn);
+                videoWrapper.appendChild(video);
+                videoWrapper.appendChild(overlay);
+                
+                // Контролы для видео
+                const videoControls = document.createElement('div');
+                videoControls.className = 'video-controls';
+                
+                const muteBtn = document.createElement('button');
+                muteBtn.innerHTML = '🔇 Выкл звук';
+                muteBtn.addEventListener('click', () => {
+                    video.muted = !video.muted;
+                    muteBtn.innerHTML = video.muted ? '🔊 Вкл звук' : '🔇 Выкл звук';
+                });
+                
+                videoControls.appendChild(muteBtn);
+                videoWrapper.appendChild(videoControls);
+                
+                galleryItem.appendChild(videoWrapper);
+                
+                // Пауза при переключении
+                video.addEventListener('play', () => {
+                    document.querySelectorAll(`${this.type}Gallery video`).forEach(v => {
+                        if (v !== video) v.pause();
+                    });
+                });
+            }
+            
+            galleryTrack.appendChild(galleryItem);
+            
+            // Создаем миниатюру
+            const thumbnail = document.createElement('div');
+            thumbnail.className = 'thumbnail';
+            thumbnail.dataset.index = index;
+            
+            if (this.type === 'photo') {
+                const thumbImg = document.createElement('img');
+                thumbImg.src = item.src;
+                thumbImg.alt = item.alt;
+                thumbnail.appendChild(thumbImg);
+            } else {
+                const thumbVideo = document.createElement('video');
+                thumbVideo.src = item.src;
+                thumbVideo.poster = item.poster;
+                thumbVideo.muted = true;
+                thumbVideo.preload = 'metadata';
+                thumbnail.appendChild(thumbVideo);
+            }
+            
+            thumbnail.addEventListener('click', () => this.showItem(index));
+            thumbnails.appendChild(thumbnail);
+        });
+    }
+
+    setupControls() {
+        const prevBtn = document.getElementById(`prev${this.type.charAt(0).toUpperCase() + this.type.slice(1)}Btn`);
+        const nextBtn = document.getElementById(`next${this.type.charAt(0).toUpperCase() + this.type.slice(1)}Btn`);
+        
+        prevBtn.addEventListener('click', () => this.prevItem());
+        nextBtn.addEventListener('click', () => this.nextItem());
+        
+        // Добавляем управление клавиатурой
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') this.prevItem();
+            if (e.key === 'ArrowRight') this.nextItem();
+        });
+    }
+
+    showItem(index) {
+        this.currentIndex = (index + this.data.length) % this.data.length;
+        
+        const galleryTrack = document.getElementById(`${this.type}Gallery`);
+        const thumbnails = document.querySelectorAll(`#${this.type}Thumbnails .thumbnail`);
+        
+        // Перемещаем трек галереи
+        galleryTrack.style.transform = `translateX(-${this.currentIndex * 100}%)`;
+        
+        // Обновляем активную миниатюру
+        thumbnails.forEach((thumb, idx) => {
+            thumb.classList.toggle('active', idx === this.currentIndex);
+        });
+        
+        // Пауза всех видео при переключении
+        if (this.type === 'video') {
+            document.querySelectorAll('#videoGallery video').forEach(video => {
+                video.pause();
+                video.currentTime = 0;
+                const overlay = video.parentElement.querySelector('.video-overlay');
+                if (overlay) overlay.style.display = 'flex';
+            });
+        }
+    }
+
+    prevItem() {
+        this.showItem(this.currentIndex - 1);
+    }
+
+    nextItem() {
+        this.showItem(this.currentIndex + 1);
+    }
+}
+
+// Инициализация галерей при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        if (document.getElementById('photoGallery')) {
+            new Gallery('photo', galleryData.photos);
+        }
+        if (document.getElementById('videoGallery')) {
+            new Gallery('video', galleryData.videos);
+        }
+    }, 100);
+});
+// History Show/Hide Functions
+function showFullHistory() {
+    document.getElementById('historyShort').style.display = 'none';
+    document.getElementById('historyFull').style.display = 'block';
+}
+
+function hideFullHistory() {
+    document.getElementById('historyFull').style.display = 'none';
+    document.getElementById('historyShort').style.display = 'block';
+}
+
+// Функция отображения ошибок
+function showFormErrors(errors) {
+    const errorsContainer = document.getElementById('formErrors');
+    errorsContainer.innerHTML = '';
+    
+    if (errors.length > 0) {
+        errors.forEach(error => {
+            const errorElement = document.createElement('div');
+            errorElement.className = 'error-message';
+            errorElement.textContent = error;
+            errorsContainer.appendChild(errorElement);
+        });
+        errorsContainer.classList.add('active');
+    } else {
+        errorsContainer.classList.remove('active');
+    }
+}
+
+// Функция отображения успешной отправки
+function showFormSuccess(message) {
+    const errorsContainer = document.getElementById('formErrors');
+    errorsContainer.innerHTML = '';
+    
+    const successElement = document.createElement('div');
+    successElement.className = 'form-success active';
+    successElement.textContent = message;
+    errorsContainer.appendChild(successElement);
+    errorsContainer.classList.add('active');
+}
+
+// Функция валидации формы
+// Функция валидации формы
+function validateForm() {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const message = document.getElementById('message').value.trim();
+    const agree = document.getElementById('agree').checked;
+    
+    const errors = [];
+    
+    // Валидация имени (только буквы и пробелы)
+    if (name === '') {
+        errors.push('Пожалуйста, введите ваше имя');
+    } else if (!/^[a-zA-Zа-яА-ЯёЁ\s]+$/.test(name)) {
+        errors.push('Имя должно содержать только буквы и пробелы');
+    } else if (name.length < 2) {
+        errors.push('Имя должно содержать не менее 2 символов');
+    }
+    
+    // Валидация email (format: example@.com)
+    if (email === '') {
+        errors.push('Пожалуйста, введите ваш email');
+    } else {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            errors.push('Пожалуйста, введите корректный email адрес (формат: example@mail.com)');
+        }
+    }
+    
+    // Валидация телефона (+7 или 8 и 11 цифр)
+    if (phone === '') {
+        errors.push('Пожалуйста, введите ваш телефон');
+    } else {
+        // Удаляем все нецифровые символы
+        const phoneDigits = phone.replace(/\D/g, '');
+        
+        // Проверяем длину (11 цифр)
+        if (phoneDigits.length !== 11) {
+            errors.push('Телефон должен содержать 11 цифр');
+        } else {
+            // Проверяем начало номера (+7 или 8)
+            const firstDigit = phoneDigits[0];
+            if (firstDigit !== '7' && firstDigit !== '8') {
+                errors.push('Телефон должен начинаться с +7 или 8');
+            }
+        }
+    }
+    
+    // Валидация сообщения
+    if (message === '') {
+        errors.push('Пожалуйста, введите ваше сообщение');
+    } else if (message.length < 10) {
+        errors.push('Сообщение должно содержать не менее 10 символов');
+    } else if (message.length > 1000) {
+        errors.push('Сообщение должно содержать не более 1000 символов');
+    }
+    
+    // Валидация согласия
+    if (!agree) {
+        errors.push('Пожалуйста, согласитесь с обработкой персональных данных');
+    }
+    
+    return errors;
+}
+
+
+        // Form Submission
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Скрываем предыдущие сообщения
+    document.getElementById('formErrors').classList.remove('active');
+    
+    // Валидация формы
+    const errors = validateForm();
+    
+    if (errors.length > 0) {
+        showFormErrors(errors);
+        return false;
+    }
+    
+    // Показываем индикатор загрузки
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Отправка...';
+    submitBtn.disabled = true;
+    
+    // Формируем данные для отправки
+    const formData = {
+        name: document.getElementById('name').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        message: document.getElementById('message').value.trim(),
+        agree: document.getElementById('agree').checked,
+        timestamp: new Date().toISOString(),
+        source: 'Mercedes F1 Contact Form'
+    };
+
+    // Отправка данных на Formcarry
+    fetch('https://formcarry.com/s/TOPOuH54Qma', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Ошибка при отправке формы');
+        }
+        return response.json();
+    })
+    .then(data => {
+        showFormSuccess('Сообщение успешно отправлено! Мы свяжемся с вами в ближайшее время.');
+        document.getElementById('contactForm').reset();
+        
+        // Восстанавливаем кнопку
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        
+        // Автоматически скрываем сообщение об успехе через 5 секунд
+        setTimeout(() => {
+            document.getElementById('formErrors').classList.remove('active');
+        }, 5000);
+    })
+    .catch(error => {
+        console.error('Ошибка:', error);
+        showFormErrors(['Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз.']);
+        
+        // Восстанавливаем кнопку
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+
+
+        // Автоматически скрываем сообщение об успехе через 5 секунд
+        setTimeout(() => {
+            document.getElementById('formErrors').classList.remove('active');
+        }, 5000);
+    }, 1000);
+});
+
+// Очистка ошибок при изменении полей формы
+document.querySelectorAll('#contactForm input, #contactForm textarea').forEach(field => {
+    field.addEventListener('input', function() {
+        document.getElementById('formErrors').classList.remove('active');
+        
+        // Валидация в реальном времени для телефона
+        if (this.id === 'phone') {
+            const phoneDigits = this.value.replace(/\D/g, '');
+            if (phoneDigits.length > 11) {
+                this.value = this.value.substring(0, this.value.length - 1);
+            }
+        }
+    });
+});
+
+document.getElementById('agree').addEventListener('change', function() {
+    document.getElementById('formErrors').classList.remove('active');
+});
+
+// Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const href = this.getAttribute('href');
+        
+        // Если это ссылка на "Главная" или "#home", прокручиваем в самый верх
+        if (href === '#home' || href === '#') {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        } else {
+            // Для остальных якорных ссылок
+            const target = document.querySelector(href);
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        // Close mobile menu after clicking
+        if (window.innerWidth <= 768) {
+            document.querySelector('.nav-links').classList.remove('active');
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.classList.remove('active');
+            });
+        }
+    });
+});
+
+// Close mobile menu when clicking on links
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', function() {
+        if (window.innerWidth <= 768) {
+            document.querySelector('.nav-links').classList.remove('active');
+        }
+    });
+});
+
+// Add scroll effect to navbar
+window.addEventListener('scroll', function() {
+    const nav = document.querySelector('.nav');
+    if (window.scrollY > 100) {
+        nav.style.background = 'rgba(0, 0, 0, 0.95)';
+    } else {
+        nav.style.background = 'rgba(0, 0, 0, 0.8)';
+    }
+});
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', function(e) {
+    if (window.innerWidth <= 768) {
+        if (!e.target.closest('.dropdown-parent')) {
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.classList.remove('active');
+            });
+        }
+    }
+});
+
+// Resize handler to reset mobile menu on desktop
+window.addEventListener('resize', function() {
+    if (window.innerWidth > 768) {
+        document.querySelector('.nav-links').classList.remove('active');
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            menu.classList.remove('active');
+        });
+    }
+});
+
+// Scroll to top when clicking on logo
+document.querySelector('.logo').addEventListener('click', function(e) {
+    e.preventDefault();
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
