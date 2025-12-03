@@ -16,37 +16,57 @@ document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
 // Gallery Data - замените на реальные URL
 const galleryData = {
     photos: [
-        { src: '1.JPG', alt: 'Команда в боксах' },
-        { src: '2.JPG', alt: 'Пилоты на подиуме' },
-        { src: '4.JPG', alt: 'Болид на трассе' },
-        { src: '5.JPG', alt: 'Командная встреча' },
-        {src: '6.JPG', alt: 'Команда в боксах' },
-        { src: '7.JPG', alt: 'Пилоты на подиуме' },
-        { src: '8.JPG', alt: 'Техническая команда' },
-        { src: '9.JPG', alt: 'Болид на трассе' },
-        { src: '10.JPG', alt: 'Командная встреча' },
-        { src: '11.JPG', alt: 'Болид на трассе' },
-        { src: '12.JPG', alt: 'Командная встреча' },
-        { src: '13.JPG', alt: 'Командная встреча' }
+        { src: '1.jpg', alt: 'Команда в боксах' },
+        { src: 'm1.jpg', alt: 'Команда в боксах' },
+        { src: '2.jpg', alt: 'Пилоты на подиуме' },
+        { src: 'm2.jpg', alt: 'Команда в боксах' },
+        { src: '4.jpg', alt: 'Болид на трассе' },
+        { src: '5.jpg', alt: 'Командная встреча' },
+        { src: 'm3.jpg', alt: 'Команда в боксах' },
+        {src: '6.jpg', alt: 'Команда в боксах' },
+        { src: 'm4.jpg', alt: 'Команда в боксах' },
+        { src: '7.jpg', alt: 'Пилоты на подиуме' },
+        { src: 'm5.jpg', alt: 'Команда в боксах' },
+        { src: '8.jpg', alt: 'Техническая команда' },
+        { src: 'm6.jpg', alt: 'Команда в боксах' },
+        { src: '9.jpg', alt: 'Болид на трассе' },
+        { src: 'm7.jpg', alt: 'Команда в боксах' },
+        { src: '10.jpg', alt: 'Командная встреча' },
+        { src: 'm8.jpg', alt: 'Команда в боксах' },
+        { src: '11.jpg', alt: 'Болид на трассе' },
+        { src: 'm9.jpg', alt: 'Команда в боксах' },
+        { src: '12.jpg', alt: 'Командная встреча' },
+        { src: 'm10.jpg', alt: 'Команда в боксах' },
+        { src: '13.jpg', alt: 'Командная встреча' }
 
     ],
     videos: [
-        { src: 'video1.MP4', poster: '11.JPG', title: '' },
-        { src: 'video2.MP4', poster: '11.JPG', title: 'Тренировочный заезд' },
-        { src: 'video3.MP4', poster: '11.JPG', title: 'Интервью с пилотами' },
-        { src: 'video4.MP4', poster: '11.JPG', title: 'Строительство болида' },
-        { src: 'video5.MP4', poster: '11.JPG', title: 'Победа в гонке' },
-        { src: 'video16.MP4', poster: '11.JPG', title: 'Закулисье Гран-при' },
-        { src: 'video7.MP4', poster: '11.JPG', title: 'Тренировочный заезд' },
-        { src: 'video8.MP4', poster: '11.JPG', title: 'Интервью с пилотами' },
-        { src: 'video9.MP4', poster: '11.JPG', title: 'Строительство болида' },
-        { src: 'video10.MP4', poster: '11.JPG', title: 'Победа в гонке' },
-        { src: 'video11.MP4', poster: '11.JPG', title: 'Закулисье Гран-при' },
-        { src: 'video12.MP4', poster: '11.JPG', title: 'Тренировочный заезд' },
-        { src: 'video13.MP4', poster: '11.JPG', title: 'Интервью с пилотами' },
-        { src: 'video14.MP4', poster: '11.JPG', title: 'Строительство болида' }
+        { src: 'video1.mp4', poster: '11.jpg', title: '' ,muted: false},
+        { src: 'mv1.mp4', poster: '11.jpg', title: '' ,muted: false},
+        { src: 'video2.mp4', poster: '11.jpg', title: '',muted: false },
+        { src: 'mv2.mp4', poster: '11.jpg', title: '' ,muted: false},
+        { src: 'video3.mp4', poster: '11.jpg', title: '',muted: false },
+        { src: 'video4.mp4', poster: '11.jpg', title: '',muted: false },
+        { src: 'mv3.mp4', poster: '11.jpg', title: '' ,muted: false},
+        { src: 'video5.mp4', poster: '11.jpg', title: '' ,muted: false},
+        { src: 'video16.mp4', poster: '11.jpg', title: '' ,muted: false},
+        { src: 'mv4.mp4', poster: '11.jpg', title: '' ,muted: false},
+        { src: 'video7.mp4', poster: '11.jpg', title: '' ,muted: false},
+        { src: 'video8.mp4', poster: '11.jpg', title: '',muted: false },
+        { src: 'mv5.mp4', poster: '11.jpg', title: '' ,muted: false},
+        { src: 'video9.mp4', poster: '11.jpg', title: '' ,muted: false},
+        { src: 'video10.mp4', poster: '11.jpg', title: '',muted: false },
+        { src: 'mv6.mp4', poster: '11.jpg', title: '' ,muted: false},
+        { src: 'video11.mp4', poster: '11.jpg', title: '',muted: false },
+        { src: 'video12.mp4', poster: '11.jpg', title: '' ,muted: false},
+        { src: 'mv7.mp4', poster: '11.jpg', title: '' ,muted: false},
+        { src: 'video13.mp4', poster: '11.jpg', title: '' ,muted: false},
+        { src: 'video14.mp4', poster: '11.jpg', title: '' ,muted: false},
+        { src: 'mv8.mp4', poster: '11.jpg', title: '' ,muted: false}
   
     ]
+    
+       
 };
 
 // Gallery functionality
@@ -57,12 +77,15 @@ class Gallery {
         this.currentIndex = 0;
         this.init();
     }
+    
 
     init() {
         this.createGallery();
         this.setupControls();
         this.showItem(0);
     }
+
+    
 
     createGallery() {
         const galleryTrack = document.getElementById(`${this.type}Gallery`);
@@ -171,28 +194,39 @@ class Gallery {
     }
 
     showItem(index) {
-        this.currentIndex = (index + this.data.length) % this.data.length;
         
-        const galleryTrack = document.getElementById(`${this.type}Gallery`);
-        const thumbnails = document.querySelectorAll(`#${this.type}Thumbnails .thumbnail`);
+    this.currentIndex = (index + this.data.length) % this.data.length;
+    
+    const galleryTrack = document.getElementById(`${this.type}Gallery`);
+    const thumbnails = document.querySelectorAll(`#${this.type}Thumbnails .thumbnail`);
+    
+    // Перемещаем трек галереи
+    galleryTrack.style.transform = `translateX(-${this.currentIndex * 100}%)`;
+    
+    // Обновляем активную миниатюру
+    thumbnails.forEach((thumb, idx) => {
+        thumb.classList.toggle('active', idx === this.currentIndex);
         
-        // Перемещаем трек галереи
-        galleryTrack.style.transform = `translateX(-${this.currentIndex * 100}%)`;
-        
-        // Обновляем активную миниатюру
-        thumbnails.forEach((thumb, idx) => {
-            thumb.classList.toggle('active', idx === this.currentIndex);
-        });
-        
-        // Пауза всех видео при переключении
-        if (this.type === 'video') {
-            document.querySelectorAll('#videoGallery video').forEach(video => {
-                video.pause();
-                video.currentTime = 0;
-                const overlay = video.parentElement.querySelector('.video-overlay');
-                if (overlay) overlay.style.display = 'flex';
+        // Прокручиваем к активной миниатюре
+        if (idx === this.currentIndex) {
+            thumb.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'center'
             });
         }
+    });
+    
+    // Пауза всех видео при переключении
+    if (this.type === 'video') {
+        document.querySelectorAll('#videoGallery video').forEach(video => {
+            video.pause();
+            video.currentTime = 0;
+            const overlay = video.parentElement.querySelector('.video-overlay');
+            if (overlay) overlay.style.display = 'flex';
+        });
+    
+}
     }
 
     prevItem() {
@@ -212,6 +246,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (document.getElementById('videoGallery')) {
             new Gallery('video', galleryData.videos);
+        }
+        if (document.getElementById('memeGallery')) { // НОВОЕ
+            new Gallery('meme', galleryData.memes);
         }
     }, 100);
 });
