@@ -295,6 +295,7 @@ function showFormSuccess(message) {
 
 // Функция валидации формы
 // Функция валидации формы
+// Функция валидации формы
 function validateForm() {
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
@@ -304,51 +305,44 @@ function validateForm() {
     
     const errors = [];
     
-    // Валидация имени (только буквы и пробелы)
+    // Валидация имени (только буквы русского и английского алфавита)
     if (name === '') {
         errors.push('Пожалуйста, введите ваше имя');
-    } else if (!/^[a-zA-Zа-яА-ЯёЁ\s]+$/.test(name)) {
-        errors.push('Имя должно содержать только буквы и пробелы');
+    } else if (!/^[a-zA-Zа-яА-ЯёЁ\s-]+$/.test(name)) {
+        errors.push('Имя должно содержать только буквы русского или английского алфавита');
     } else if (name.length < 2) {
         errors.push('Имя должно содержать не менее 2 символов');
     }
     
-    // Валидация email (format: example@.com)
+    // Валидация email (формат: example@mail.ru)
     if (email === '') {
         errors.push('Пожалуйста, введите ваш email');
     } else {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            errors.push('Пожалуйста, введите корректный email адрес (формат: example@mail.com)');
+            errors.push('Пожалуйста, введите корректный email адрес (формат: example@mail.ru)');
         }
     }
     
-    // Валидация телефона (+7 или 8 и 11 цифр)
+    // Валидация телефона (только 11 цифр)
     if (phone === '') {
         errors.push('Пожалуйста, введите ваш телефон');
     } else {
-        // Удаляем все нецифровые символы
-        const phoneDigits = phone.replace(/\D/g, '');
-        
-        // Проверяем длину (11 цифр)
-        if (phoneDigits.length !== 11) {
-            errors.push('Телефон должен содержать 11 цифр');
-        } else {
-            // Проверяем начало номера (+7 или 8)
-            const firstDigit = phoneDigits[0];
-            if (firstDigit !== '7' && firstDigit !== '8') {
-                errors.push('Телефон должен начинаться с +7 или 8');
-            }
+        // Проверяем, что введены только цифры
+        if (!/^\d+$/.test(phone)) {
+            errors.push('Телефон должен содержать только цифры (без пробелов и других символов)');
+        }
+        // Проверяем длину (ровно 11 цифр)
+        else if (phone.length !== 11) {
+            errors.push('Телефон должен содержать ровно 11 цифр');
         }
     }
     
-    // Валидация сообщения
+    // Валидация сообщения (просто должно быть заполнено)
     if (message === '') {
         errors.push('Пожалуйста, введите ваше сообщение');
     } else if (message.length < 10) {
         errors.push('Сообщение должно содержать не менее 10 символов');
-    } else if (message.length > 1000) {
-        errors.push('Сообщение должно содержать не более 1000 символов');
     }
     
     // Валидация согласия
@@ -361,6 +355,7 @@ function validateForm() {
 
 
         // Form Submission
+// Form Submission
 document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -427,32 +422,33 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
         // Восстанавливаем кнопку
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
-
-
-        // Автоматически скрываем сообщение об успехе через 5 секунд
+        
+        // Автоматически скрываем сообщение об ошибке через 5 секунд
         setTimeout(() => {
             document.getElementById('formErrors').classList.remove('active');
         }, 5000);
-    }, 1000);
-});
-
-// Очистка ошибок при изменении полей формы
-document.querySelectorAll('#contactForm input, #contactForm textarea').forEach(field => {
-    field.addEventListener('input', function() {
-        document.getElementById('formErrors').classList.remove('active');
-        
-        // Валидация в реальном времени для телефона
-        if (this.id === 'phone') {
-            const phoneDigits = this.value.replace(/\D/g, '');
-            if (phoneDigits.length > 11) {
-                this.value = this.value.substring(0, this.value.length - 1);
-            }
-        }
     });
 });
 
-document.getElementById('agree').addEventListener('change', function() {
+// Ограничение ввода для телефона - только цифры
+document.getElementById('phone').addEventListener('input', function(e) {
+    // Удаляем все нецифровые символы
+    this.value = this.value.replace(/\D/g, '');
+    
+    // Ограничиваем длину до 11 символов
+    if (this.value.length > 11) {
+        this.value = this.value.substring(0, 11);
+    }
+    
+    // Скрываем ошибки
     document.getElementById('formErrors').classList.remove('active');
+});
+
+// Очистка ошибок при изменении других полей формы
+['name', 'email', 'message'].forEach(fieldId => {
+    document.getElementById(fieldId).addEventListener('input', function() {
+        document.getElementById('formErrors').classList.remove('active');
+    });
 });
 
 // Smooth scrolling for anchor links
