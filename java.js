@@ -16,35 +16,35 @@ document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
 // Gallery Data - замените на реальные URL
 const galleryData = {
     photos: [
-        { src: '1.jpg', alt: 'Команда в боксах' },
-        { src: '2.jpg', alt: 'Пилоты на подиуме' },
-        { src: '4.jpg', alt: 'Болид на трассе' },
-        { src: '5.jpg', alt: 'Командная встреча' },
-        {src: '6.jpg', alt: 'Команда в боксах' },
-        { src: '7.jpg', alt: 'Пилоты на подиуме' },
-        { src: '8.jpg', alt: 'Техническая команда' },
-        { src: '9.jpg', alt: 'Болид на трассе' },
-        { src: '10.jpg', alt: 'Командная встреча' },
-        { src: '11.jpg', alt: 'Болид на трассе' },
-        { src: '12.jpg', alt: 'Командная встреча' },
-        { src: '13.jpg', alt: 'Командная встреча' }
+        { src: '1.JPG', alt: 'Команда в боксах' },
+        { src: '2.JPG', alt: 'Пилоты на подиуме' },
+        { src: '4.JPG', alt: 'Болид на трассе' },
+        { src: '5.JPG', alt: 'Командная встреча' },
+        {src: '6.JPG', alt: 'Команда в боксах' },
+        { src: '7.JPG', alt: 'Пилоты на подиуме' },
+        { src: '8.JPG', alt: 'Техническая команда' },
+        { src: '9.JPG', alt: 'Болид на трассе' },
+        { src: '10.JPG', alt: 'Командная встреча' },
+        { src: '11.JPG', alt: 'Болид на трассе' },
+        { src: '12.JPG', alt: 'Командная встреча' },
+        { src: '13.JPG', alt: 'Командная встреча' }
 
     ],
     videos: [
-        { src: 'video1.mp4', poster: '11.jpg', title: '' },
-        { src: 'video2.mp4', poster: '11.jpg', title: 'Тренировочный заезд' },
-        { src: 'video3.mp4', poster: '11.jpg', title: 'Интервью с пилотами' },
-        { src: 'video4.mp4', poster: '11.jpg', title: 'Строительство болида' },
-        { src: 'video5.mp4', poster: '11.jpg', title: 'Победа в гонке' },
-        { src: 'video16.mp4', poster: '11.jpg', title: 'Закулисье Гран-при' },
-        { src: 'video7.mp4', poster: '11.jpg', title: 'Тренировочный заезд' },
-        { src: 'video8.mp4', poster: '11.jpg', title: 'Интервью с пилотами' },
-        { src: 'video9.mp4', poster: '11.jpg', title: 'Строительство болида' },
-        { src: 'video10.mp4', poster: '11.jpg', title: 'Победа в гонке' },
-        { src: 'video11.mp4', poster: '11.jpg', title: 'Закулисье Гран-при' },
-        { src: 'video12.mp4', poster: '11.jpg', title: 'Тренировочный заезд' },
-        { src: 'video13.mp4', poster: '11.jpg', title: 'Интервью с пилотами' },
-        { src: 'video14.mp4', poster: '11.jpg', title: 'Строительство болида' }
+        { src: 'video1.MP4', poster: '11.JPG', title: '' },
+        { src: 'video2.MP4', poster: '11.JPG', title: 'Тренировочный заезд' },
+        { src: 'video3.MP4', poster: '11.JPG', title: 'Интервью с пилотами' },
+        { src: 'video4.MP4', poster: '11.JPG', title: 'Строительство болида' },
+        { src: 'video5.MP4', poster: '11.JPG', title: 'Победа в гонке' },
+        { src: 'video16.MP4', poster: '11.JPG', title: 'Закулисье Гран-при' },
+        { src: 'video7.MP4', poster: '11.JPG', title: 'Тренировочный заезд' },
+        { src: 'video8.MP4', poster: '11.JPG', title: 'Интервью с пилотами' },
+        { src: 'video9.MP4', poster: '11.JPG', title: 'Строительство болида' },
+        { src: 'video10.MP4', poster: '11.JPG', title: 'Победа в гонке' },
+        { src: 'video11.MP4', poster: '11.JPG', title: 'Закулисье Гран-при' },
+        { src: 'video12.MP4', poster: '11.JPG', title: 'Тренировочный заезд' },
+        { src: 'video13.MP4', poster: '11.JPG', title: 'Интервью с пилотами' },
+        { src: 'video14.MP4', poster: '11.JPG', title: 'Строительство болида' }
   
     ]
 };
