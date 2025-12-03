@@ -569,41 +569,45 @@
         <!-- Добавить после секции videos -->
 
         
-        <section id="contact">
-            <div class="container">
-                <h2 class="section-title">Свяжитесь с командой</h2>
-                <form class="contact-form" id="contactForm">
-                    <div class="form-group">
-                        <label for="name">Имя</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Телефон</label>
-                        <input type="tel" id="phone" name="phone" placeholder="+7 (XXX) XXX-XX-XX">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Сообщение</label>
-                        <textarea id="message" name="message" required placeholder="Расскажите о вашем предложении или вопросе..."></textarea>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <input type="checkbox" id="agree" name="agree" required>
-                        <label for="agree" class="checkbox-label">
-                            Я согласен(на) с <a href="/privacy-policy" target="_blank">обработкой персональных данных</a>
-                        </label>
-                    </div>
-                    
-                    
-                    <div class="form-errors" id="formErrors"></div>
-                    
-                    
-                    <button type="submit" class="btn">Отправить сообщение</button>
-                </form>
+    <section id="contact">
+    <div class="container">
+        <h2 class="section-title">Свяжитесь с командой</h2>
+        <form class="contact-form" id="contactForm">
+            <div class="form-group">
+                <label for="name">Имя *</label>
+                <input type="text" id="name" name="name" required 
+                       placeholder="Только буквы русского или английского алфавита">
             </div>
-        </section>
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required 
+                       placeholder="example@mail.ru">
+            </div>
+            <div class="form-group">
+                <label for="phone">Телефон *</label>
+                <input type="tel" id="phone" name="phone" required 
+                       placeholder="11 цифр, например: 79123456789" 
+                       pattern="[0-9]{11}" 
+                       maxlength="11">
+            </div>
+            <div class="form-group">
+                <label for="message">Сообщение *</label>
+                <textarea id="message" name="message" required 
+                          placeholder="Расскажите о вашем предложении или вопросе..."></textarea>
+            </div>
+            <div class="form-group checkbox-group">
+                <input type="checkbox" id="agree" name="agree" required>
+                <label for="agree" class="checkbox-label">
+                    Я согласен(на) с <a href="/privacy-policy" target="_blank">обработкой персональных данных</a>
+                </label>
+            </div>
+            
+            <div class="form-errors" id="formErrors"></div>
+            
+            <button type="submit" class="btn">Отправить сообщение</button>
+        </form>
+    </div>
+</section>   
     </main>
 
    
